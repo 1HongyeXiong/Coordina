@@ -54,7 +54,7 @@ userSchema.methods.getPastEvents = async function () { throw new Error("TODO"); 
 userSchema.methods.getUpcomingEvents = async function () { throw new Error("TODO"); };
 userSchema.methods.getOwningEvents = async function () { throw new Error("TODO"); };
 userSchema.methods.getParticipatingEvents = async function () { throw new Error("TODO"); };
-userSchema.methods.checkEventAccess = async function (_eventID, _userID) { if (eventParticipants.includes(_userID)) return true; throw new Error("TODO"); };
+userSchema.methods.checkEventAccess = async function (_eventID, _userID) { throw new Error("TODO"); };
 userSchema.methods.checkOwnerAccess = async function (_eventID, _userID) { if (eventOwner.equals(_userID)) return true; throw new Error("TODO"); };
 
 export const User = model<IUser, UserModel>("User", userSchema);
