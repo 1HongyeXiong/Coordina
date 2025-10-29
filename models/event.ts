@@ -5,8 +5,8 @@ const eventSchema = new mongoose.Schema(
         name: { type: String, required: true },
         eventLink: { type: String, unique: true },
         status: { type: String, enum: ["proposed", "scheduled", "ongoing", "past"], default: "proposed" },
-        organizerid: { type: Number, default: 0 },
-        participants: { type: [Number], default: [] },
+        organizerid: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+        participantsid: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     },
     { timestamps: true }
 );

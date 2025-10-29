@@ -3,10 +3,10 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
-import connectDB from "./configuration/db.js";
+import connectDB from "./configuration/db.ts";
 
-import userRoutes from "./routes/userRoute.js";
-import eventRoutes from "./routes/eventRoute.js";
+import userRoutes from "./routes/userRoute.ts";
+import eventRoutes from "./routes/eventRoute.ts";
 
 dotenv.config();
 const app = express();
