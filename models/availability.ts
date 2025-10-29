@@ -5,8 +5,8 @@ const availabilitySchema = new mongoose.Schema(
         userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
         eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
         status: { type: String, enum: ["available", "unavailable", "maybe"], default: "available" },
-        date: { type: Date, required: true },
-        availableTime: { type: Date, required: true }
+        startAt: { type: Date, required: true },
+        endAt: { type: Date, required: true }
     }
 );
 
