@@ -3,7 +3,7 @@
 // or with mongosh: mongosh your-db-name populate.js
 
 // Switch to the database
-use coordina;
+// use coordina;
 
 // Drop existing collections for a clean slate
 db.users.drop();

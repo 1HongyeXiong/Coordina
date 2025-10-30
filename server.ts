@@ -11,6 +11,8 @@ import eventRoutes from "./routes/eventRoute.ts";
 dotenv.config();
 const app = express();
 
+
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -22,6 +24,12 @@ connectDB();
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/events", eventRoutes);
+
+
+app.get("/test", (req, res) => {
+  res.status(200).send("It works!");
+});
+
 
 // Root route
 app.get("/", (req, res) => {
@@ -46,7 +54,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5500;
 app.listen(PORT, () =>
   console.log(`Coordina server running on http://localhost:${PORT}`)
 );
