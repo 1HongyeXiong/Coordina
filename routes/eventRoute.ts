@@ -3,7 +3,7 @@ import {
   getAllEvents,
   getEventById,
   createEvent,
-} from "../controllers/eventController.ts";
+} from "../controllers/eventController";
 
 const router = express.Router();
 

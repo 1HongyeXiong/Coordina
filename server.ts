@@ -3,10 +3,10 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
-import connectDB from "./configuration/db.ts";
+import connectDB from "./configuration/db";
 
-import userRoutes from "./routes/userRoute.ts";
-import eventRoutes from "./routes/eventRoute.ts";
+import userRoutes from "./routes/userRoute";
+import eventRoutes from "./routes/eventRoute";
 
 dotenv.config();
 const app = express();
@@ -40,9 +40,9 @@ app.use((req, res, next) => {
 });
 
 // Global Error Handler
-app.use((err, req, res, next) => {
-  console.error("Error:", err.stack);
-  res.status(500).json({ error: err.message || "Server Error" });
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error("Error:", err?.stack ?? err);
+  res.status(500).json({ error: err?.message || "Server Error" });
 });
 
 // Start server
