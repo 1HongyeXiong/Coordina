@@ -25,6 +25,7 @@ export const getUserById = async (req: Request, res: Response) => {
 // POST create user
 export const createUser = async (req: Request, res: Response) => {
   try {
+    console.log("Incoming event body:", req.body); 
     const { name, userEmail, userName } = req.body;
     const user = new User({ name, userEmail, userName });
     await user.save();

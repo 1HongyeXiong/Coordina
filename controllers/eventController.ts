@@ -25,8 +25,9 @@ export const getEventById = async (req: Request, res: Response) => {
 // POST create Event
 export const createEvent = async (req: Request, res: Response) => {
   try {
-    const { name, EventEmail, EventName } = req.body;
-    const Events = new Event({ name, EventEmail, EventName });
+    console.log("Incoming event body:", req.body); 
+    const { name, eventLink, status, organizerid, participantsid } = req.body;
+    const Events = new Event({ name, eventLink, status, organizerid, participantsid });
     await Events.save();
     res.status(201).json(Events);
   } catch (err:any) {
