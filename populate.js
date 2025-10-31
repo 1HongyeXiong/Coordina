@@ -34,7 +34,8 @@ const users = db.users.insertMany([
 ]);
 
 // Insert sample event
-const event = db.events.insertOne({
+const event = db.events.insertMany([
+    {
     name: "Team Sync Meeting",
     eventLink: "team-sync-2025",
     status: "proposed",
@@ -42,7 +43,17 @@ const event = db.events.insertOne({
     participantsid: [users.insertedIds["1"]],
     createdAt: new Date(),
     updatedAt: new Date()
-});
+},
+{
+    name: "Workshop Session",
+    eventLink: "workshop-2025",
+    status: "scheduled",
+    organizerid: users.insertedIds["0"],
+    participantsid: [users.insertedIds["1"]],
+    createdAt: new Date(),
+    updatedAt: new Date()
+}
+]);
 
 // Insert sample event time slots
 db.eventtimes.insertMany([
