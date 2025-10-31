@@ -11,10 +11,13 @@ import eventRoutes from "./routes/eventRoute";
 dotenv.config();
 const app = express();
 
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(express.static("frontend"));
+
 
 // Database connection
 connectDB();
@@ -22,6 +25,12 @@ connectDB();
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/events", eventRoutes);
+
+
+app.get("/test", (req, res) => {
+  res.status(200).send("It works!");
+});
+
 
 // Root route
 app.get("/", (req, res) => {
