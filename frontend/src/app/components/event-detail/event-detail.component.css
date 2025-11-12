@@ -1,0 +1,16 @@
+.event-detail {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+}
+.back-btn {
+  margin-top: 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+.back-btn:hover {
+  background-color: #1259a6;
+}

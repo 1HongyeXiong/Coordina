@@ -1,0 +1,72 @@
+/* General container spacing */
+.container {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+/* Page header */
+h1.text-center {
+  margin-bottom: 2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Cards */
+.card {
+  border-radius: 0.75rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Card header */
+.card-header {
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+/* Card body text */
+.card-body p {
+  margin-bottom: 0.5rem;
+  color: #6c757d; /* muted text */
+}
+
+/* Card titles */
+.card-title {
+  font-weight: 600;
+}
+
+/* Buttons inside cards */
+.card a.btn {
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* Upcoming and Past previews */
+#upcoming-list, #past-list {
+  min-height: 80px; /* ensures space for loading text */
+}
+
+/* Event items inside previews */
+#upcoming-list .mb-3, 
+#past-list .mb-3 {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* Event name headings */
+#upcoming-list h6, #past-list h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+/* Footer */
+footer {
+  margin-top: 4rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
