@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { EventService, Event } from '../../services/event-service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-list',
-  imports: [CommonModule, HttpClientModule],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './event-list.component.html',
   styleUrls: ['./event-list.component.css']
 })

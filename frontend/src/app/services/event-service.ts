@@ -15,11 +15,12 @@ export interface Event {
   providedIn: 'root'
 })
 export class EventService {
-  private apiUrl = 'http://localhost:5000/api/events'; // backend base URL
+  private apiUrl = 'http://localhost:5001/api/events'; // backend base URL
 
   constructor(private http: HttpClient) {}
 
   getEvents(): Observable<Event[]> {
+    console.log('Fetching events from', this.apiUrl);
     return this.http.get<Event[]>(this.apiUrl);
   }
 
