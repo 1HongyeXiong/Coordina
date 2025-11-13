@@ -1,5 +1,10 @@
 <div class="container mt-5">
-  <h1 class="text-center mb-5">Coordina Events</h1>
+
+  <!-- Page Title + Tagline -->
+  <h1 class="text-center mb-2">Coordina Events</h1>
+  <p class="text-center text-muted mb-5">
+    Easily plan, track, and manage all your events in one place.
+  </p>
 
   <!-- Top entry cards -->
   <div class="row text-center g-4">
@@ -7,10 +12,18 @@
     <!-- Create Event -->
     <div class="col-12 col-md-4">
       <div class="card shadow-sm h-100">
+        <img 
+          src="https://cdn-icons-png.flaticon.com/512/1827/1827504.png" 
+          alt="Create Event" 
+          class="card-img-top p-4" 
+          style="height: 150px; object-fit: contain;"
+        />
         <div class="card-body d-flex flex-column justify-content-between">
           <div>
             <h4 class="card-title text-primary">Create Event</h4>
-            <p class="text-muted">Plan and schedule a new event.</p>
+            <p class="text-muted">
+              Quickly set up a new event with date, time, and participants.
+            </p>
           </div>
           <a routerLink="/create" class="btn btn-primary mt-3">Create</a>
         </div>
@@ -20,10 +33,18 @@
     <!-- Upcoming Events -->
     <div class="col-12 col-md-4">
       <div class="card shadow-sm h-100">
+        <img 
+          src="https://cdn-icons-png.flaticon.com/512/2950/2950681.png" 
+          alt="Upcoming Events"
+          class="card-img-top p-4"
+          style="height: 150px; object-fit: contain;"
+        />
         <div class="card-body d-flex flex-column justify-content-between">
           <div>
             <h4 class="card-title text-success">Upcoming Events</h4>
-            <p class="text-muted">View and manage upcoming events.</p>
+            <p class="text-muted">
+              See all upcoming events and manage schedules with ease.
+            </p>
           </div>
           <a routerLink="/upcoming-events" class="btn btn-success mt-3">View Events</a>
         </div>
@@ -33,12 +54,20 @@
     <!-- Past Events -->
     <div class="col-12 col-md-4">
       <div class="card shadow-sm h-100">
+        <img 
+          src="https://cdn-icons-png.flaticon.com/512/5957/5957477.png"
+          alt="Past Events"
+          class="card-img-top p-4"
+          style="height: 150px; object-fit: contain;"
+        />
         <div class="card-body d-flex flex-column justify-content-between">
           <div>
             <h4 class="card-title text-secondary">Past Events</h4>
-            <p class="text-muted">See completed or archived events.</p>
+            <p class="text-muted">
+              Review completed or archived events all in one place.
+            </p>
           </div>
-          <a routerLink="/past" class="btn btn-secondary mt-3">View Events</a>
+          <a routerLink="/past-events" class="btn btn-secondary mt-3">View Events</a>
         </div>
       </div>
     </div>

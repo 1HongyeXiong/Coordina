@@ -1,0 +1,15 @@
+<div class="event-list">
+  <h2>Past Events</h2>
+
+  <div *ngIf="events.length === 0" class="no-events">
+    No past events.
+  </div>
+
+  <div class="event-card" *ngFor="let event of events" (click)="openEvent(event._id)">
+    <h3>{{ event.name }}</h3>
+    <p class="description">{{ event.description }}</p>
+    <p><strong>📍 Location:</strong> {{ event.location }}</p>
+    <p><strong>📅 Date:</strong> {{ event.eventtimeid.startAt | date:'fullDate' }}</p>
+    <p><strong>🕐 Time:</strong> {{ event.eventtimeid.startAt | date:'shortTime' }} – {{ event.eventtimeid.endAt | date:'shortTime' }}</p>
+  </div>
+</div>
