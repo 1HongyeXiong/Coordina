@@ -1,16 +1,185 @@
-.event-detail {
-  max-width: 700px;
-  margin: auto;
-  padding: 20px;
+/* 🌐 Header Bar */
+.coordina-header {
+  background-color: #2563eb;
+  padding: 16px 30px;
+  text-align: left;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+.coordina-header .logo {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+.coordina-header .logo:hover {
+  color: #dbeafe;
+}
+
+/* 📄 Event Card */
+.event-detail {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.event-detail h2 {
+  text-align: center;
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 10px;
+}
+
+.event-detail p {
+  margin: 12px 0;
+  color: #374151;
+  font-size: 15.5px;
+}
+
+.event-detail strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+.event-detail a {
+  color: #2563eb;
+  text-decoration: none;
+}
+.event-detail a:hover {
+  text-decoration: underline;
+}
+
+.time {
+  color: #16a34a;
+  font-weight: 500;
+}
+
+/* 🧑‍💼 Organizer Card */
+.organizer-section {
+  margin-top: 25px;
+}
+.organizer-section h4 {
+  color: #2563eb;
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+.organizer-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: all 0.25s ease;
+}
+.organizer-card:hover {
+  background: #eef2ff;
+  border-color: #2563eb;
+}
+.organizer-card .avatar {
+  background-color: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.organizer-card .email {
+  color: #6b7280;
+  font-size: 14px;
+}
+.organizer-card .role {
+  color: #16a34a;
+  font-size: 14px;
+}
+
+/* 👥 Participants Grid */
+.participants {
+  margin-top: 30px;
+}
+.participants h4 {
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.no-participants {
+  text-align: center;
+  color: #6b7280;
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 15px;
+}
+.participant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+.participant-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px 16px;
+  transition: all 0.25s ease;
+}
+.participant-card:hover {
+  background: #eef2ff;
+  border-color: #2563eb;
+}
+.participant-card .avatar {
+  background-color: #16a34a;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info .email {
+  color: #6b7280;
+  font-size: 14px;
+}
+.info .role {
+  color: #16a34a;
+  font-size: 14px;
+}
+
+/* 🔙 Back Button */
 .back-btn {
-  margin-top: 20px;
-  background-color: #1976d2;
-  color: white;
+  display: block;
+  margin: 35px auto 0;
+  background-color: #2563eb;
+  color: #fff;
   border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
+  padding: 12px 24px;
+  font-size: 15.5px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 .back-btn:hover {
-  background-color: #1259a6;
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
 }

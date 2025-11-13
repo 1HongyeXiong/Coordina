@@ -1,19 +1,54 @@
-<div *ngIf="event" class="event-detail">
-  <h2>{{ event.name }}</h2>
-  <p><strong>Date:</strong> {{ event.eventtimeid.startAt | date:'mediumDate' }}</p>
-  <p><strong>Link:</strong> {{ event.eventLink }}</p>
-  <p><strong>Time:</strong> {{ event.eventtimeid.startAt | date:'shortTime': 'UTC' }} - {{ event.eventtimeid.endAt | date:'shortTime': 'UTC' }}</p>
-  <p><strong>Organizer:</strong> {{ event.organizerid.name }}</p>
-  <p><strong>Participants</strong></p>
-<div *ngIf="event.participantsid.length === 0" class="text-muted">
-  No participants yet.
-</div>
+<!-- Coordina Header -->
+<header class="coordina-header">
+  <h1 routerLink="/" class="logo">Coordina</h1>
+</header>
 
-<ul *ngIf="event.participantsid.length > 0">
-  <li *ngFor="let p of event.participantsid">
-    <strong>{{ p.name }}</strong> — {{ p.userEmail }} ({{ p.role }})
-  </li>
-</ul>
+<!-- Event Detail Card -->
+<div class="event-detail">
+  <h2>{{ event.name }}</h2>
+
+  <p><strong>Date:</strong> {{ event.eventtimeid.startAt | date:'mediumDate' }}</p>
+  <p><strong>Link:</strong> <a [href]="event.eventLink" target="_blank">{{ event.eventLink }}</a></p>
+  <p class="time">
+    <strong>Time:</strong>
+    {{ event.eventtimeid.startAt | date:'shortTime':'UTC' }}
+    – {{ event.eventtimeid.endAt | date:'shortTime':'UTC' }}
+  </p>
+
+  <!-- 🧑‍💼 Organizer Card -->
+  <div class="organizer-section">
+    <h4>Organizer</h4>
+    <div class="organizer-card">
+      <div class="avatar">{{ event.organizerid.name.charAt(0).toUpperCase() }}</div>
+      <div class="info">
+        <strong>{{ event.organizerid.name }}</strong><br />
+        <span class="email">{{ event.organizerid.userEmail }}</span><br />
+        <span class="role">({{ event.organizerid.role }})</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 👥 Participants Section -->
+  <div class="participants">
+    <h4>Participants</h4>
+
+    <div *ngIf="!event.participantsid || event.participantsid.length === 0" class="no-participants">
+      No participants yet.
+    </div>
+
+    <div class="participant-grid">
+      <div class="participant-card" *ngFor="let p of event.participantsid">
+        <div class="avatar">
+          {{ p.name.charAt(0).toUpperCase() }}
+        </div>
+        <div class="info">
+          <strong>{{ p.name }}</strong><br />
+          <span class="email">{{ p.userEmail }}</span><br />
+          <span class="role">({{ p.role }})</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <button routerLink="/events" class="back-btn">Back to Events</button>
 </div>
