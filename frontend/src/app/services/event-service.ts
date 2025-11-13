@@ -1,15 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Event {
-  _id: string;
-  name: string;
-  description: string;
-  location: string;
-  date: string;
-  organizer: string;
-}
+import { Event } from '../models/event';
 
 @Injectable({
   providedIn: 'root'
