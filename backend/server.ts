@@ -7,6 +7,7 @@ import connectDB from "./configuration/db";
 
 import userRoutes from "./routes/userRoute";
 import eventRoutes from "./routes/eventRoute";
+import eventtimeRoute from "./routes/eventtimeRoute";
 
 dotenv.config();
 const app = express();
@@ -25,6 +26,7 @@ connectDB();
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/eventtimes", eventtimeRoute);
 
 
 app.get("/test", (req, res) => {
@@ -39,6 +41,7 @@ app.get("/", (req, res) => {
     endpoints: {
       users: "/api/users",
       events: "/api/events",
+      eventtime: "/api/eventtimes"
     },
   });
 });

@@ -4,7 +4,10 @@ import Event from "../models/event";
 // GET all Events
 export const getAllEvents = async (req: Request, res: Response) => {
   try {
-    const Events = await Event.find();
+    const Events = await Event.find()
+      .populate("eventtimeid")
+      .populate("organizerid")
+      .populate("participantsid");
     res.json(Events);
   } catch (err:any) {
     res.status(500).json({ message: err.message });
@@ -14,7 +17,10 @@ export const getAllEvents = async (req: Request, res: Response) => {
 // GET Event by ID
 export const getEventById = async (req: Request, res: Response) => {
   try {
-    const Events = await Event.findById(req.params.id);
+    const Events = await Event.findById(req.params.id)
+      .populate("eventtimeid")
+      .populate("organizerid")
+      .populate("participantsid");
     if (!Events) return res.status(404).json({ message: "Event not found" });
     res.json(Events);
   } catch (err:any) {
@@ -26,8 +32,8 @@ export const getEventById = async (req: Request, res: Response) => {
 export const createEvent = async (req: Request, res: Response) => {
   try {
     console.log("Incoming event body:", req.body); 
-    const { name, eventLink, status, organizerid, participantsid } = req.body;
-    const Events = new Event({ name, eventLink, status, organizerid, participantsid });
+    const { name, eventLink, eventtimeid, status, organizerid, participantsid } = req.body;
+    const Events = new Event({ name, eventLink, eventtimeid, status, organizerid, participantsid });
     await Events.save();
     res.status(201).json(Events);
   } catch (err:any) {
