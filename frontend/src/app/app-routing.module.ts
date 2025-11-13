@@ -5,7 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
 import { UpcomingEventsComponent } from './components/upcoming-events/upcoming-events-component';
-import { PastEventsComponent } from './components/past-events/past-events';
+import { PastEventsComponent } from './components/past-events/past-events.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },    
