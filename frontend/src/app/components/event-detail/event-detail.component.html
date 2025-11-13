@@ -1,9 +1,19 @@
 <div *ngIf="event" class="event-detail">
   <h2>{{ event.name }}</h2>
-  <p><strong>Date:</strong> {{ event.date | date:'medium' }}</p>
-  <p><strong>Location:</strong> {{ event.location }}</p>
-  <p><strong>Description:</strong> {{ event.description }}</p>
-  <p><strong>Organizer:</strong> {{ event.organizer }}</p>
+  <p><strong>Date:</strong> {{ event.eventtimeid.startAt | date:'mediumDate' }}</p>
+  <p><strong>Link:</strong> {{ event.eventLink }}</p>
+  <p><strong>Time:</strong> {{ event.eventtimeid.startAt | date:'shortTime' }} - {{ event.eventtimeid.endAt | date:'shortTime' }}</p>
+  <p><strong>Organizer:</strong> {{ event.organizerid.name }}</p>
+  <p><strong>Participants</strong></p>
+<div *ngIf="event.participantsid.length === 0" class="text-muted">
+  No participants yet.
+</div>
+
+<ul *ngIf="event.participantsid.length > 0">
+  <li *ngFor="let p of event.participantsid">
+    <strong>{{ p.name }}</strong> — {{ p.userEmail }} ({{ p.role }})
+  </li>
+</ul>
 
   <button routerLink="/events" class="back-btn">Back to Events</button>
 </div>
