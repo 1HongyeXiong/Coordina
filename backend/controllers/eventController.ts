@@ -4,7 +4,10 @@ import Event from "../models/event";
 // GET all Events
 export const getAllEvents = async (req: Request, res: Response) => {
   try {
-    const Events = await Event.find();
+    const Events = await Event.find()
+      .populate("eventtimeid")
+      .populate("organizerid")
+      .populate("participantsid");
     res.json(Events);
   } catch (err:any) {
     res.status(500).json({ message: err.message });
