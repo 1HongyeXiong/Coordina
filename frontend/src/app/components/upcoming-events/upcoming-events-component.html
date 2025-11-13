@@ -7,8 +7,9 @@
 
   <div class="event-card" *ngFor="let event of events" (click)="openEvent(event._id)">
     <h3>{{ event.name }}</h3>
-    <p>{{ event.description }}</p>
+    <p class="description">{{ event.description }}</p>
     <p><strong>📍 Location:</strong> {{ event.location }}</p>
-    <p><strong>📅 Date:</strong> {{ event.date | date:'medium' }}</p>
+    <p><strong>📅 Date:</strong> {{ event.eventtimeid.startAt | date:'fullDate' }}</p>
+    <p><strong>🕐 Time:</strong> {{ event.eventtimeid.startAt | date:'shortTime' }} – {{ event.eventtimeid.endAt | date:'shortTime' }}</p>
   </div>
 </div>

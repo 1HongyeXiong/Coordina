@@ -20,3 +20,5 @@ export class EventService {
     return this.http.get<Event>(`${this.apiUrl}/${id}`);
   }
 }
+
+export type { Event };

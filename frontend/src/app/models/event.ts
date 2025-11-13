@@ -9,4 +9,6 @@ export interface Event {
   eventtimeid: Eventtime;
   organizerid: User;
   participantsid: User[];
+  location?: string;
+  description?: string;
 }
