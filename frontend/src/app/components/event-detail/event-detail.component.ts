@@ -50,4 +50,11 @@ export class EventDetailComponent implements OnInit {
       });
     }
   }
+
+  getBackRoute() {
+  const eventDate = new Date(this.event.eventtimeid.startAt);
+  console.log('Event date for back route:', eventDate);
+  return eventDate > new Date() ? '/upcoming-events' : '/past-events';
+}
+
 }
