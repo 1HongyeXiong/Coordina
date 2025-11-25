@@ -5,11 +5,12 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 import { EventService } from '../../services/event-service';
 import { Event } from '../../models/event';
 import { UserRole } from '../../models/user';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-event-detail',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, RouterModule],
+  imports: [CommonModule, HttpClientModule, RouterModule, HeaderComponent],
   templateUrl: './event-detail.component.html',
   styleUrls: ['./event-detail.component.css']
 })

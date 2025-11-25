@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { EventService } from '../../services/event-service';
 import { Event } from '../../models/event';
 import { Router } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-upcoming-events',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent],
   templateUrl: './upcoming-events-component.html',
   styleUrls: ['./upcoming-events.component.css']
 })
