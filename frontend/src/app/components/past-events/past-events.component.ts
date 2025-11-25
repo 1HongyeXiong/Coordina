@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { EventService } from '../../services/event-service';
 import { Event } from '../../models/event';
 import { Router } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-past-events',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent],
   templateUrl: './past-events.component.html',
   styleUrls: ['./past-events.component.css']
 })
