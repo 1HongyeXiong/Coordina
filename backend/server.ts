@@ -1,9 +1,9 @@
-// server.js
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
 import connectDB from "./configuration/db";
+import session from "express-session";
 
 import userRoutes from "./routes/userRoute";
 import eventRoutes from "./routes/eventRoute";
@@ -11,7 +11,20 @@ import eventtimeRoute from "./routes/eventtimeRoute";
 
 dotenv.config();
 const app = express();
+const authProvider = require('./auth/AuthProvider');
+const authController = require('./controllers/authController');
 
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'defaultsecret',
+  resave: false,
+  saveUninitialized: false, // Changed from true
+  cookie: { 
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000 // Move maxAge inside cookie
+  }
+}));
 
 // Middleware
 app.use(cors());
