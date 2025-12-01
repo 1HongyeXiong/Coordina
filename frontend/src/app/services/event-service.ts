@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Event } from '../models/event';
 
@@ -11,14 +11,19 @@ export class EventService {
 
   constructor(private http: HttpClient) {}
 
-  getEvents(): Observable<Event[]> {
+  // Get all events (optionally filtered by userId)
+  getEvents(userId?: string): Observable<Event[]> {
     console.log('Fetching events from', this.apiUrl);
-    return this.http.get<Event[]>(this.apiUrl);
+    
+    let params = new HttpParams();
+    if (userId) {
+      params = params.set('userId', userId);
+    }
+    
+    return this.http.get<Event[]>(this.apiUrl, { params });
   }
 
   getEventById(id: string): Observable<Event> {
     return this.http.get<Event>(`${this.apiUrl}/${id}`);
   }
 }
-
-export type { Event };

@@ -8,6 +8,7 @@ import session from "express-session";
 import userRoutes from "./routes/userRoute";
 import eventRoutes from "./routes/eventRoute";
 import eventtimeRoute from "./routes/eventtimeRoute";
+import authRoutes from "./routes/auth";
 
 dotenv.config();
 const app = express();
@@ -40,6 +41,7 @@ connectDB();
 app.use("/api/users", userRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/eventtimes", eventtimeRoute);
+app.use("/auth", authRoutes);
 
 
 app.get("/test", (req, res) => {

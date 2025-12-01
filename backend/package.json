@@ -22,15 +22,22 @@
   },
   "homepage": "https://github.com/1HongyeXiong/Coordina#readme",
   "dependencies": {
+    "@angular/router": "^21.0.1",
+    "@azure/msal-angular": "^4.0.22",
+    "@azure/msal-browser": "^4.26.2",
+    "@azure/msal-node": "^3.8.3",
+    "axios": "^1.13.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "mongoose": "^8.19.2",
     "morgan": "^1.10.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
+    "@types/express-session": "^1.18.2",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.9.2",
     "ts-node": "^10.9.2",

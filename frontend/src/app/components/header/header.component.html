@@ -1,3 +1,10 @@
 <header class="coordina-header">
   <h1 routerLink="/" class="logo">Coordina</h1>
+  <div class="auth-buttons">
+    <button *ngIf="!isLoggedIn" (click)="login()" class="login-btn">Login With Microsoft</button>
+    <span *ngIf="isLoggedIn" class="user-info">
+      Welcome, {{ userName }}
+      <button (click)="logout()" class="logout-btn">Logout</button>
+    </span>
+  </div>
 </header>
