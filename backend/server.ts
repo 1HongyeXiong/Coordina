@@ -12,20 +12,30 @@ import authRoutes from "./routes/auth";
 
 dotenv.config();
 const app = express();
-const authProvider = require('./auth/AuthProvider');
-const authController = require('./controllers/authController');
 
+if (!process.env.SESSION_SECRET) {
+  throw new Error('SESSION_SECRET environment variable is required');
+}
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'defaultsecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false, // Changed from true
   cookie: { 
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000 // Move maxAge inside cookie
+    maxAge: 24 * 60 * 60 * 1000, // Move maxAge inside cookie
+    sameSite: 'lax' // Add this to prevent CSRF
   }
 }));
+
+// Warn if running in development mode with insecure cookies
+if (process.env.NODE_ENV !== 'production') {
+  console.warn(
+    "[WARNING] Session cookies are not secure (sent over HTTP). " +
+    "Do not use this configuration in production!"
+  );
+}
 
 // Middleware
 app.use(cors());

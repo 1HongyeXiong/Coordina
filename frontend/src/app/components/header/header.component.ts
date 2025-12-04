@@ -22,6 +22,14 @@ export class HeaderComponent {
     return this.authService.getUserName() || 'User';
   }
 
+  get userEmail(): string {
+    return this.authService.getUserName() || '';  // Microsoft username IS the email
+  }
+
+  get userId(): string {
+    return this.authService.getUserId() || '';  // MongoDB User _id
+  }
+
   login(): void {
     this.authService.login();
   }

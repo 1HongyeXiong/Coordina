@@ -37,7 +37,15 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.setActiveAccount();
         if (this.msalService.instance.getActiveAccount()) {
-          this.authService.syncUser().subscribe();
+          this.authService.syncUser().subscribe({
+            next: (user) => {
+              console.log('User synced successfully', user);
+            },
+            error: (err) => {
+              console.error('Failed to sync user', err);
+              // Optionally, show an error message to the user or log them out
+            }
+          });
         }
       });
   }

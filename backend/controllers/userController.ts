@@ -52,6 +52,15 @@ export const findOrCreateUser = async (req: Request, res: Response) => {
 export const syncMicrosoftId = async (req: Request, res: Response) => {
   try {
     const { userEmail, microsoftId, name } = req.body;
+
+    // Input validation
+    if (!userEmail || !microsoftId) {
+      return res.status(400).json({ message: 'userEmail and microsoftId are required' });
+    }
+    // Validate email format
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
     
     let user = await User.findOneAndUpdate(
       { userEmail },

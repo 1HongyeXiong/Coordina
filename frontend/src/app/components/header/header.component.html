@@ -1,10 +1,16 @@
 <header class="coordina-header">
-  <h1 routerLink="/" class="logo">Coordina</h1>
-  <div class="auth-buttons">
-    <button *ngIf="!isLoggedIn" (click)="login()" class="login-btn">Login With Microsoft</button>
-    <span *ngIf="isLoggedIn" class="user-info">
-      Welcome, {{ userName }}
-      <button (click)="logout()" class="logout-btn">Logout</button>
-    </span>
+  <div class="header-top">
+    <h1 routerLink="/" class="logo">Coordina</h1>
+    <div class="auth-section">
+      <button *ngIf="!isLoggedIn" (click)="login()" class="login-btn">Login With Microsoft</button>
+      <div *ngIf="isLoggedIn" class="user-info">
+        <div class="user-details">
+          <strong>{{ userName }}</strong>
+          <span class="user-email">Email: {{ userEmail }}</span>
+          <span class="user-id">UserID: {{ userId }}</span>
+        </div>
+        <button (click)="logout()" class="logout-btn">Logout</button>
+      </div>
+    </div>
   </div>
 </header>
