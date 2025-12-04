@@ -32,7 +32,7 @@ export class AuthService {
 
   getUserName(): string | null {
     const accounts: AccountInfo[] = this.msalService.instance.getAllAccounts();
-    if (accounts.length == 0){
+    if (accounts.length === 0){
         return null;
     }
     return accounts[0].username;

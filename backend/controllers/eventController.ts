@@ -20,11 +20,20 @@ export const getAllEvents = async (req: Request, res: Response) => {
 export const getEventById = async (req: Request, res: Response) => {
   try {
     const userId = req.query.userId as string | undefined;
-    const Events = await Event.findById(req.params.id) // where user Id matches
+    const Events = await Event.findById(req.params.id)
       .populate("eventtimeid")
       .populate("organizerid")
       .populate("participantsid");
     if (!Events) return res.status(404).json({ message: "Event not found" });
+
+    // Authorization check: user must be organizer or participant
+    if (userId && Events) {
+      const isAuthorized = Events.organizerid?._id?.toString() === userId ||
+                          Events.participantsid?.some((p: any) => p._id?.toString() === userId);
+      if (!isAuthorized) {
+        return res.status(403).json({ message: 'Access denied' });
+      }
+    }
     res.json(Events);
   } catch (err:any) {
     res.status(500).json({ message: err.message });
