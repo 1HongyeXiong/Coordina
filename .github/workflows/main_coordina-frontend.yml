@@ -59,4 +59,5 @@ jobs:
         with:
           app-name: 'coordina-frontend'
           slot-name: 'Production'
-          package: .
+          package: angular-app
+
