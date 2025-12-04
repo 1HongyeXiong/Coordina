@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "Smart group scheduling app that helps teams and friends find the best time to meet.",
   "main": "server.ts",
-   "scripts": {
+
+  "scripts": {
   "dev": "ts-node server.ts",
   "start": "ts-node server.ts",
   "seed": "ts-node scripts/populate.ts",
   "test": "echo \"no tests\""
+
   },
   "repository": {
     "type": "git",
