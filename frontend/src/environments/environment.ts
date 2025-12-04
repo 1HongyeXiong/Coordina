@@ -10,10 +10,8 @@ export const environment = {
     auth: {
       // TODO: Replace with environment variables for production deployments.
       // Example: process.env['NG_APP_CLIENT_ID'] || 'example-client-id'
-      clientId: (typeof process !== 'undefined' && process.env && process.env['NG_APP_CLIENT_ID'])
-        ? process.env['NG_APP_CLIENT_ID'] : '09d56e44-fd10-487e-9317-28eb66999f9e',
-      authority: (typeof process !== 'undefined' && process.env &&
-        process.env['NG_APP_AUTHORITY']) ? process.env['NG_APP_AUTHORITY'] : 'https://login.microsoftonline.com/4de56939-a91e-4cd1-8285-e289916648ff',
+      clientId: '09d56e44-fd10-487e-9317-28eb66999f9e',
+      authority: 'https://login.microsoftonline.com/4de56939-a91e-4cd1-8285-e289916648ff',
       redirectUri: 'http://localhost:4200',
       postLogoutRedirectUri: 'http://localhost:4200'
     }
