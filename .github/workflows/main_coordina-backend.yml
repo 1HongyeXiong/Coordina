@@ -18,15 +18,15 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: Install dependencies
+      - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
 
-      - name: Build project
+      - name: Build backend (TypeScript → JavaScript)
         working-directory: ./backend
         run: npm run build
 
-      - name: Upload artifact
+      - name: Upload backend dist folder
         uses: actions/upload-artifact@v4
         with:
           name: backend-dist
@@ -40,7 +40,7 @@ jobs:
       contents: read
 
     steps:
-      - name: Download artifact
+      - name: Download backend artifact
         uses: actions/download-artifact@v4
         with:
           name: backend-dist
@@ -48,9 +48,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8C23322913F04826A0702D9DE971572B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_885EE270E1FF4FB799DEA764650F1049 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2E187219C5F847CBBC25D690B976424C }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
