@@ -14,27 +14,32 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+
     steps:
+      # Checkout code
       - uses: actions/checkout@v3
         with:
           submodules: true
           lfs: false
 
-      # Force Node 20 (Angular 20 requires Node >= 20.19)
+      # Force correct Node version (Angular 17/18/19/20 all require Node >= 18; 
+      # Angular 17+ usually requires Node 20+)
       - name: Use Node.js 20
         uses: actions/setup-node@v3
         with:
           node-version: '20.19.0'
 
-      # Install dependencies and build manually
+      # Install Angular dependencies
       - name: Install dependencies
         working-directory: ./frontend
         run: npm install
 
-      - name: Build Angular app
+      # Build Angular app
+      - name: Build Angular
         working-directory: ./frontend
         run: npm run build
 
+      # Deploy ONLY already-built files, do NOT allow Oryx to rebuild
       - name: Deploy to Azure Static Web Apps
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -42,13 +47,16 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LEMON_SMOKE_0C9095B1E }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "./frontend"
-          output_location: "dist/frontend"
+          app_location: "./frontend"          # where your package.json is
+          output_location: "dist/frontend"    # built app folder
+          app_build_command: ""               # prevents Azure from rebuilding with Node18
+          api_build_command: ""               # (optional) ensures no API build
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request Job
+
     steps:
       - name: Close Pull Request
         id: closepullrequest
