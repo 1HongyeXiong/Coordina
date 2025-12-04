@@ -2,37 +2,29 @@
   "name": "coordina",
   "version": "1.0.0",
   "description": "Smart group scheduling app that helps teams and friends find the best time to meet.",
-  "main": "server.ts",
+  "main": "dist/server.js",
 
   "scripts": {
-  "dev": "ts-node server.ts",
-  "start": "ts-node server.ts",
-  "seed": "ts-node scripts/populate.ts",
-  "test": "echo \"no tests\""
+    "dev": "ts-node server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "seed": "ts-node scripts/populate.ts",
+    "test": "echo \"no tests\""
+  },
 
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/1HongyeXiong/Coordina.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/1HongyeXiong/Coordina/issues"
-  },
-  "homepage": "https://github.com/1HongyeXiong/Coordina#readme",
+
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "mongoose": "^8.19.2",
-    "morgan": "^1.10.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "morgan": "^1.10.1"
   },
+
   "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/morgan": "^1.9.10",
