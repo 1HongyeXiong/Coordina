@@ -4,7 +4,9 @@ import Event from "../models/event";
 // GET all Events
 export const getAllEvents = async (req: Request, res: Response) => {
   try {
-    const Events = await Event.find()
+    const userId = req.query.userId as string | undefined;
+    const filter = userId ? { $or: [{ participantsid: userId }, { organizerid: userId }] } : {};
+    const Events = await Event.find(filter) // where user Id matches
       .populate("eventtimeid")
       .populate("organizerid")
       .populate("participantsid");
@@ -17,7 +19,8 @@ export const getAllEvents = async (req: Request, res: Response) => {
 // GET Event by ID
 export const getEventById = async (req: Request, res: Response) => {
   try {
-    const Events = await Event.findById(req.params.id)
+    const userId = req.query.userId as string | undefined;
+    const Events = await Event.findById(req.params.id) // where user Id matches
       .populate("eventtimeid")
       .populate("organizerid")
       .populate("participantsid");
