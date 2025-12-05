@@ -50,6 +50,7 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8B267B67FF8E446EBE3032BCE2452E27 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E1E1451E6F7D45F8890E324CF30E9966 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_93F5E74FF8B94EE6B48C093D8D703686 }}
+  
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
@@ -57,3 +58,4 @@ jobs:
           app-name: 'coordina-backend'
           slot-name: 'Production'
           package: './app'
+
