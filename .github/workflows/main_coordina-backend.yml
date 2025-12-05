@@ -46,8 +46,11 @@ jobs:
         run: |
           mkdir backend-package
           cp -r backend/dist backend-package/dist
+          cp -r backend/auth backend-package/auth
           cp backend/package.json backend/package-lock.json backend-package/
           cp -r backend/node_modules backend-package/node_modules
+
+          
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -82,3 +85,4 @@ jobs:
           app-name: "coordina-backend"
           slot-name: "Production"
           package: "./app"
+
