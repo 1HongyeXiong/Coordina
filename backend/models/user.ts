@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    microsoftId: { type: String, unique: true, sparse: true }, // Microsoft SSO identifier
     name: { type: String, required: true },
     userEmail: { type: String, required: true, unique: true },
     userName: { type: String, required: true, unique: true },

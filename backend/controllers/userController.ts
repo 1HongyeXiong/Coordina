@@ -34,3 +34,42 @@ export const createUser = async (req: Request, res: Response) => {
     res.status(400).json({ message: err.message });
   }
 };
+// if User Not found Create
+export const findOrCreateUser = async (req: Request, res: Response) => {
+  try {
+    const { userEmail, name, userName } = req.body;
+    let user = await User.findOne({ userEmail });
+    if (!user) {
+      user = new User({ name, userEmail, userName });
+      await user.save();
+    }
+    res.json(user);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const syncMicrosoftId = async (req: Request, res: Response) => {
+  try {
+    const { userEmail, microsoftId, name } = req.body;
+    
+    let user = await User.findOneAndUpdate(
+      { userEmail },
+      { microsoftId },
+      { new: true }
+    );
+    // if not found, create new user with Microsoft profile data
+    if (!user) {
+      user = new User({ 
+        userEmail,                    // From Microsoft account
+        microsoftId,                  // Microsoft's unique ID
+        name: name || userEmail,      // From Microsoft profile (e.g., "toan nguyen")
+        userName: userEmail           // Use email as userName
+      });
+      await user.save();
+    }
+    res.json(user);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+};
