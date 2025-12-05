@@ -58,5 +58,6 @@ jobs:
         with:
           app-name: 'coordina-backend'
           slot-name: 'Production'
-          package: .
+          package: ./dist
+
 
