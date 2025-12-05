@@ -31,7 +31,7 @@ async function run() {
         console.log("✔ Cleanup completed. Starting fresh population...");
 
         // --------------------------------------
-        // 1️⃣ USERS — Insert 5 users
+        // 1️⃣ USERS — Insert 6 users
         // --------------------------------------
         const users = await User.insertMany([
             { name: "Ramya", userEmail: "rramesh@seattleu.edu", userName: "ramya" },
