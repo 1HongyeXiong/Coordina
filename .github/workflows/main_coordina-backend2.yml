@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatc
 
 jobs:
   build:
@@ -41,9 +41,10 @@ jobs:
 
     steps:
       - name: Download backend dist artifact
-      uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4
         with:
           name: backend2-dist
+          path: .
 
       - name: Azure Login (using original working client-id)
         uses: azure/login@v2
