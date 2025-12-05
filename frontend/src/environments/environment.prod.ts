@@ -11,7 +11,8 @@ export const environment = {
   },
 
   apiConfig: {
-    baseUrl: 'https://coordina-backend-dkfzh7g8a4c7fbec.westus2-01.azurewebsites.net/',
+    baseUrl: 'https://coordina-backend-dkfzh7g8a4c7fbec.westus2-01.azurewebsites.net/api',
     scopes: ['user.read']
   }
 };
+
