@@ -26,11 +26,18 @@ jobs:
         working-directory: ./backend
         run: npm run build
 
-      - name: Upload backend dist folder
+      - name: Prepare package for Azure
+        run: |
+          mkdir backend-output
+          cp -r backend/package.json backend/dist backend-output/
+          # 如果你还有 .env.production，则复制它
+          # cp backend/.env.production backend-output/.env
+
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: backend-dist
-          path: backend/dist/
+          name: backend-package
+          path: backend-output/
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,8 +50,8 @@ jobs:
       - name: Download backend artifact
         uses: actions/download-artifact@v4
         with:
-          name: backend-dist
-          path: ./dist
+          name: backend-package
+          path: .
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -58,6 +65,4 @@ jobs:
         with:
           app-name: 'coordina-backend'
           slot-name: 'Production'
-          package: ./dist
-
-
+          package: ./backend-output
