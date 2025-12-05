@@ -37,7 +37,8 @@ async function run() {
             { name: "Ramya", userEmail: "rramesh@seattleu.edu", userName: "ramya" },
             { name: "Ramesh", userEmail: "ramesh@example.com", userName: "ramesh" },
             { name: "Hongye", userEmail: "hxiong@seattleu.edu", userName: "hongye" },
-            { name: "Tony", userEmail: "tnguyen49@seattleu.edu",    userName: "tony" },
+            { name: "Tony", userEmail: "tnguyen49@seattleu.edu",    userName: "tony" },,
+            { name: "Toan", userEmail: "toan_98146@yahoo.com", userName: "toan_98146" },
             { name: "Alice Brown", userEmail: "alice@example.com", userName: "alicebrown" }
         ]);
 
