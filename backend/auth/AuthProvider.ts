@@ -1,11 +1,34 @@
-import { Request, Response, NextFunction } from 'express';
-import * as msal from '@azure/msal-node';
-import axios from 'axios';
-import { msalConfig, TENANT_SUBDOMAIN, REDIRECT_URI, POST_LOGOUT_REDIRECT_URI, GRAPH_ME_ENDPOINT } from '../authConfig';
+import { Request, Response, NextFunction } from "express";
+import * as msal from "@azure/msal-node";
+import axios from "axios";
+import {
+    msalConfig,
+    TENANT_SUBDOMAIN,
+    REDIRECT_URI,
+    POST_LOGOUT_REDIRECT_URI,
+} from "../authConfig";
+
+// ---- FIX SESSION TYPINGS ----
+declare module "express-session" {
+    interface SessionData {
+        csrfToken?: string;
+        authCodeRequest?: any;
+        authCodeUrlRequest?: any;
+        pkceCodes?: {
+            verifier: string;
+            challenge: string;
+            challengeMethod: string;
+        };
+        tokenCache?: any;
+        idToken?: string;
+        account?: any;
+        isAuthenticated?: boolean;
+    }
+}
 
 class AuthProvider {
     config: any;
-    cryptoProvider: msal.CryptoProvider;
+    cryptoProvider: any;
 
     constructor(config: any) {
         this.config = config;
@@ -16,23 +39,23 @@ class AuthProvider {
         return new msal.ConfidentialClientApplication(msalConfig);
     }
 
-    async login(req: Request, res: Response, next: NextFunction, options: any = {}) {
-        req.session!.csrfToken = this.cryptoProvider.createNewGuid();
+    async login(req: Request, res: Response, next: NextFunction) {
+        req.session.csrfToken = this.cryptoProvider.createNewGuid();
 
         const state = this.cryptoProvider.base64Encode(
             JSON.stringify({
-                csrfToken: req.session!.csrfToken,
-                redirectTo: '/',
+                csrfToken: req.session.csrfToken,
+                redirectTo: "/",
             })
         );
 
         const authCodeUrlRequestParams = {
-            state: state,
+            state,
             scopes: [],
         };
 
         const authCodeRequestParams = {
-            state: state,
+            state,
             scopes: [],
         };
 
@@ -55,21 +78,24 @@ class AuthProvider {
 
     async handleRedirect(req: Request, res: Response, next: NextFunction) {
         const authCodeRequest = {
-            ...req.session!.authCodeRequest,
+            ...req.session.authCodeRequest,
             code: req.body.code,
-            codeVerifier: req.session!.pkceCodes.verifier,
+            codeVerifier: req.session.pkceCodes?.verifier,
         };
 
         try {
             const msalInstance = this.getMsalInstance(this.config.msalConfig);
-            msalInstance.getTokenCache().deserialize(req.session!.tokenCache);
+            msalInstance.getTokenCache().deserialize(req.session.tokenCache || "");
 
-            const tokenResponse = await msalInstance.acquireTokenByCode(authCodeRequest, req.body);
+            const tokenResponse = await msalInstance.acquireTokenByCode(
+                authCodeRequest,
+                req.body
+            );
 
-            req.session!.tokenCache = msalInstance.getTokenCache().serialize();
-            req.session!.idToken = tokenResponse.idToken;
-            req.session!.account = tokenResponse.account;
-            req.session!.isAuthenticated = true;
+            req.session.tokenCache = msalInstance.getTokenCache().serialize();
+            req.session.idToken = tokenResponse.idToken;
+            req.session.account = tokenResponse.account;
+            req.session.isAuthenticated = true;
 
             const state = JSON.parse(this.cryptoProvider.base64Decode(req.body.state));
             res.redirect(state.redirectTo);
@@ -79,9 +105,9 @@ class AuthProvider {
     }
 
     async logout(req: Request, res: Response, next: NextFunction) {
-        let logoutUri = `${this.config.msalConfig.auth.authority}/oauth2/v2.0/logout?post_logout_redirect_uri=${this.config.postLogoutRedirectUri}`;
+        const logoutUri = `${this.config.msalConfig.auth.authority}/oauth2/v2.0/logout?post_logout_redirect_uri=${this.config.postLogoutRedirectUri}`;
 
-        req.session!.destroy(() => {
+        req.session.destroy(() => {
             res.redirect(logoutUri);
         });
     }
@@ -96,28 +122,30 @@ class AuthProvider {
     ) {
         const { verifier, challenge } = await this.cryptoProvider.generatePkceCodes();
 
-        req.session!.pkceCodes = {
-            challengeMethod: 'S256',
-            verifier: verifier,
-            challenge: challenge,
+        req.session.pkceCodes = {
+            verifier,
+            challenge,
+            challengeMethod: "S256",
         };
 
-        req.session!.authCodeUrlRequest = {
+        req.session.authCodeUrlRequest = {
             ...authCodeUrlRequestParams,
             redirectUri: this.config.redirectUri,
-            responseMode: 'form_post',
-            codeChallenge: req.session!.pkceCodes.challenge,
-            codeChallengeMethod: req.session!.pkceCodes.challengeMethod,
+            responseMode: "form_post",
+            codeChallenge: challenge,
+            codeChallengeMethod: "S256",
         };
 
-        req.session!.authCodeRequest = {
+        req.session.authCodeRequest = {
             ...authCodeRequestParams,
             redirectUri: this.config.redirectUri,
-            code: '',
+            code: "",
         };
 
         try {
-            const authCodeUrlResponse = await msalInstance.getAuthCodeUrl(req.session!.authCodeUrlRequest);
+            const authCodeUrlResponse = await msalInstance.getAuthCodeUrl(
+                req.session.authCodeUrlRequest
+            );
             res.redirect(authCodeUrlResponse);
         } catch (error) {
             next(error);
@@ -129,7 +157,7 @@ class AuthProvider {
 
         try {
             const response = await axios.get(endpoint);
-            return await response.data;
+            return response.data;
         } catch (error) {
             console.log(error);
         }
@@ -137,7 +165,7 @@ class AuthProvider {
 }
 
 const authProvider = new AuthProvider({
-    msalConfig: msalConfig,
+    msalConfig,
     redirectUri: REDIRECT_URI,
     postLogoutRedirectUri: POST_LOGOUT_REDIRECT_URI,
 });
