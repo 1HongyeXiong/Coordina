@@ -26,11 +26,17 @@ jobs:
         working-directory: ./backend
         run: npm run build
 
+ 
+      - name: Prepare backend artifact
+        run: |
+          mkdir backend-dist
+          cp -r backend/dist/* backend-dist/
+
       - name: Upload backend artifact
         uses: actions/upload-artifact@v4
         with:
           name: backend-dist
-          path: backend/dist/
+          path: backend-dist/
 
   deploy:
     runs-on: ubuntu-latest
@@ -44,6 +50,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: backend-dist
+          path: backend-dist   
+
+      - name: Check downloaded files
+        run: ls -R backend-dist
 
       - name: Login to Azure
         uses: azure/login@v2
