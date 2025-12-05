@@ -29,7 +29,7 @@ jobs:
       - name: Upload backend dist folder
         uses: actions/upload-artifact@v4
         with:
-          name: backend-dist
+          name: backend2-dist
           path: backend/dist/
 
   deploy:
@@ -40,21 +40,21 @@ jobs:
       contents: read
 
     steps:
-      - name: Download backend artifact
-        uses: actions/download-artifact@v4
+      - name: Download backend dist artifact
+      uses: actions/download-artifact@v4
         with:
-          name: backend-dist
+          name: backend2-dist
 
-      - name: Login to Azure
+      - name: Azure Login (using original working client-id)
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_BACKEND2 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8C23322913F04826A0702D9DE971572B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_885EE270E1FF4FB799DEA764650F1049 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2E187219C5F847CBBC25D690B976424C }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'coordina-backend2'
           slot-name: Production
-          package: backend-dist
+          package: backend2-dist
