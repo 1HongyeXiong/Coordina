@@ -50,12 +50,13 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1BE01EBAA5A348EF86730587E5A7D5D3 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_21435133DC8B4B23AAE2BBEFB7054BA2 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B06C131B2EFE442DB1B23DCF65420AF5 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8B267B67FF8E446EBE3032BCE2452E27 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E1E1451E6F7D45F8890E324CF30E9966 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_93F5E74FF8B94EE6B48C093D8D703686 }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: coordina-backend
           package: .
+
