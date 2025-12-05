@@ -27,6 +27,19 @@ export const createEventtime = async (req: Request, res: Response) => {
   try {
     console.log("Incoming event body:", req.body); 
     const { startAt, endAt } = req.body;
+    
+    // Validate that endAt is after startAt
+    if (startAt && endAt) {
+      const startDate = new Date(startAt);
+      const endDate = new Date(endAt);
+      
+      if (endDate <= startDate) {
+        return res.status(400).json({ 
+          message: "endAt must be after startAt. Validation may be needed." 
+        });
+      }
+    }
+    
     const Eventtimes = new Eventtime({ startAt, endAt });
     await Eventtimes.save();
     res.status(201).json(Eventtimes);
