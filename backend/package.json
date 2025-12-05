@@ -9,7 +9,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:azure": "jest azure-endpoints.integration.test.ts",
+    "test:azure": "jest __tests__/azure-endpoints.integration.test.ts",
     "build": "tsc",
     "start": "npx ts-node server.ts",
     "seed": "ts-node scripts/populate.ts"

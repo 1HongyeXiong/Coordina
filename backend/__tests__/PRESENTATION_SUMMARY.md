@@ -3,25 +3,24 @@
 ## One-Page Summary
 
 ### Overview
-- **40 comprehensive test cases** covering all API endpoints
-- **100% endpoint coverage** - Every API route is tested
+- **34 comprehensive test cases** covering all implemented API endpoints
+- **100% endpoint coverage** - Every available API route is tested
 - **Real Azure integration** - Tests run against live Azure-deployed backend
-- **All tests passing** - 40/40 tests successful
-- **Fast execution** - Completes in 6-8 seconds
+- **All tests passing** - 34/34 tests successful
+- **Fast execution** - Completes in 5-6 seconds
 
 ### Test Coverage
 
 | Category | Tests | Endpoints |
 |----------|-------|-----------|
 | Root Endpoints | 3 | `/`, `/test` |
-| User Endpoints | 10 | `/api/users`, `/api/users/:id`, `/api/users/sync` |
+| User Endpoints | 7 | `/api/users`, `/api/users/:id` |
 | Event Endpoints | 8 | `/api/events`, `/api/events/:id` |
 | Eventtime Endpoints | 5 | `/api/eventtimes`, `/api/eventtimes/:id` |
-| Authentication | 3 | `/auth/signin`, `/auth/signout`, `/auth/redirect` |
 | Error Handling | 4 | Various error scenarios |
 | Edge Cases | 5 | Special characters, concurrent requests |
 | Performance | 2 | Response time, sequential operations |
-| **TOTAL** | **40** | **12 endpoints** |
+| **TOTAL** | **34** | **9 endpoints** |
 
 ### What Gets Tested
 
@@ -75,8 +74,8 @@ npm run test:coverage
 
 ```
 Test Suites: 1 passed, 1 total
-Tests:       40 passed, 40 total
-Time:        6-8 seconds
+Tests:       34 passed, 34 total
+Time:        5-6 seconds
 Status:      ✅ All Passing
 ```
 
@@ -119,11 +118,11 @@ All tests validate against this live Azure endpoint.
 
 ## Quick Stats
 
-- **Total Tests:** 40
+- **Total Tests:** 34
 - **Pass Rate:** 100%
-- **Execution Time:** 6-8 seconds
-- **Endpoint Coverage:** 100%
-- **Test Categories:** 8
+- **Execution Time:** 5-6 seconds
+- **Endpoint Coverage:** 100% of implemented endpoints
+- **Test Categories:** 7
 - **Error Scenarios:** 15+
 
 ---

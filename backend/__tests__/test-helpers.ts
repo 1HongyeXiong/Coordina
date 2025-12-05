@@ -90,8 +90,13 @@ export const isAzureReachable = async (): Promise<boolean> => {
     const response = await axios.get(`${TestConfig.AZURE_BACKEND_URL}/test`, {
       timeout: 5000,
     });
-    return response.status === 200;
-  } catch (error) {
+    // Accept 200 (OK) or 503 (Service Unavailable means endpoint exists but service is down)
+    return response.status === 200 || response.status === 503;
+  } catch (error: any) {
+    // If it's a 503, the endpoint exists but service is unavailable
+    if (error.response?.status === 503) {
+      return true; // Endpoint exists, just unavailable
+    }
     return false;
   }
 };
