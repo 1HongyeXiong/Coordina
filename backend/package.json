@@ -5,13 +5,13 @@
   "main": "dist/server.js",
 
   "scripts": {
-    "dev": "ts-node server.ts",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "build": "tsc",
-    "start": "npx ts-node server.ts",
-    "seed": "ts-node scripts/populate.ts"
+  "dev": "ts-node server.ts",
+  "test": "jest",
+  "test:watch": "jest --watch",
+  "test:coverage": "jest --coverage",
+  "build": "tsc",
+  "start": "node dist/server.js",
+  "seed": "ts-node scripts/populate.ts"
   },
 
   "type": "commonjs",
