@@ -3,37 +3,36 @@
  * Licensed under the MIT License.
  */
 
-require('dotenv').config();
+import * as dotenv from "dotenv";
+dotenv.config();
 
-const TENANT_SUBDOMAIN = process.env.TENANT_SUBDOMAIN || 'Enter_the_Tenant_Subdomain_Here';
-const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:3000/auth/redirect';
-const POST_LOGOUT_REDIRECT_URI = process.env.POST_LOGOUT_REDIRECT_URI || 'http://localhost:3000';
+export const TENANT_SUBDOMAIN: string =
+    process.env.TENANT_SUBDOMAIN || "Enter_the_Tenant_Subdomain_Here";
+
+export const REDIRECT_URI: string =
+    process.env.REDIRECT_URI || "http://localhost:3000/auth/redirect";
+
+export const POST_LOGOUT_REDIRECT_URI: string =
+    process.env.POST_LOGOUT_REDIRECT_URI || "http://localhost:3000";
 
 /**
  * Configuration object to be passed to MSAL instance on creation.
- * For a full list of MSAL Node configuration parameters, visit:
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-node/docs/configuration.md
  */
-const msalConfig = {
+export const msalConfig = {
     auth: {
-        clientId: process.env.CLIENT_ID || 'Enter_the_Application_Id_Here', // 'Application (client) ID' of app registration in Microsoft Entra admin center - this value is a GUID
-        authority: process.env.AUTHORITY || `https://${TENANT_SUBDOMAIN}.ciamlogin.com/`, // Replace the placeholder with your tenant name
-        clientSecret: process.env.CLIENT_SECRET || 'Enter_the_Client_Secret_Here', // Client secret generated from the app registration in Microsoft Entra admin center
+        clientId: process.env.CLIENT_ID || "Enter_the_Application_Id_Here",
+        authority:
+            process.env.AUTHORITY ||
+            `https://${TENANT_SUBDOMAIN}.ciamlogin.com/`,
+        clientSecret: process.env.CLIENT_SECRET || "Enter_the_Client_Secret_Here",
     },
     system: {
         loggerOptions: {
-            loggerCallback(loglevel, message, containsPii) {
+            loggerCallback(loglevel: any, message: string, containsPii: boolean) {
                 console.log(message);
             },
             piiLoggingEnabled: false,
-            logLevel: 'Info',
+            logLevel: "Info",
         },
     },
-};
-
-module.exports = {
-    msalConfig,
-    REDIRECT_URI,
-    POST_LOGOUT_REDIRECT_URI,
-    TENANT_SUBDOMAIN,
 };
