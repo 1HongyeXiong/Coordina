@@ -34,10 +34,10 @@ async function run() {
         // 1️⃣ USERS — Insert 5 users
         // --------------------------------------
         const users = await User.insertMany([
-            { name: "Ramya", userEmail: "ramya@example.com", userName: "ramya" },
+            { name: "Ramya", userEmail: "rramesh@seattleu.edu", userName: "ramya" },
             { name: "Ramesh", userEmail: "ramesh@example.com", userName: "ramesh" },
-            { name: "John Doe", userEmail: "john@example.com", userName: "johndoe" },
-            { name: "Jane Smith", userEmail: "jane@example.com",    userName: "janesmith" },
+            { name: "Hongye", userEmail: "hxiong@seattleu.edu", userName: "hongye" },
+            { name: "Tony", userEmail: "tnguyen49@seattleu.edu",    userName: "tony" },
             { name: "Alice Brown", userEmail: "alice@example.com", userName: "alicebrown" }
         ]);
 
