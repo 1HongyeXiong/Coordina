@@ -29,9 +29,10 @@ jobs:
       - name: Prepare package for Azure
         run: |
           mkdir backend-output
-          cp -r backend/package.json backend/dist backend-output/
-          # 如果你还有 .env.production，则复制它
-          # cp backend/.env.production backend-output/.env
+          cp -r backend/package.json backend-output/
+          cp -r backend/dist backend-output/dist
+
+          # cp backend/.env backend-output/.env
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -51,7 +52,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: backend-package
-          path: .
+          path: ./app
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -65,4 +66,4 @@ jobs:
         with:
           app-name: 'coordina-backend'
           slot-name: 'Production'
-          package: ./backend-output
+          package: ./app
