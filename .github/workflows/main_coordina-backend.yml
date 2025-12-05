@@ -1,3 +1,5 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+
 name: Build and deploy Node.js app to Azure Web App - coordina-backend
 
 on:
@@ -9,11 +11,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js version
+      - name: Set up Node.js 20
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
@@ -26,18 +30,18 @@ jobs:
         working-directory: ./backend
         run: npm run build
 
-      - name: Package backend for Azure
+      - name: Prepare artifact for deployment
         run: |
-          mkdir backend-output
-          cp backend/package.json backend-output/
-          cp backend/package-lock.json backend-output/
-          cp -r backend/dist backend-output/dist
+          mkdir backend-dist
+          cp backend/package.json backend-dist/
+          cp -r backend/dist backend-dist/dist
 
-      - name: Upload backend artifact
+
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: backend-package
-          path: backend-output/
+          name: backend-dist
+          path: backend-dist/
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,19 +54,19 @@ jobs:
       - name: Download backend artifact
         uses: actions/download-artifact@v4
         with:
-          name: backend-package
-          path: ./app
+          name: backend-dist
+          path: backend-dist
 
-      - name: Login to Azure
+      - name: Login to Azure (uses your original working secrets)
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8C23322913F04826A0702D9DE971572B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_885EE270E1FF4FB799DEA764650F1049 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2E187219C5F847CBBC25D690B976424C }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'coordina-backend'
           slot-name: 'Production'
-          package: './app'
+          package: backend-dist
