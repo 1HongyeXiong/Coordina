@@ -31,14 +31,15 @@ async function run() {
         console.log("✔ Cleanup completed. Starting fresh population...");
 
         // --------------------------------------
-        // 1️⃣ USERS — Insert 5 users
+        // 1️⃣ USERS — Insert 6 users
         // --------------------------------------
         const users = await User.insertMany([
             { name: "Ramya", userEmail: "ramya@example.com", userName: "ramya" },
             { name: "Ramesh", userEmail: "ramesh@example.com", userName: "ramesh" },
             { name: "John Doe", userEmail: "john@example.com", userName: "johndoe" },
             { name: "Jane Smith", userEmail: "jane@example.com",    userName: "janesmith" },
-            { name: "Alice Brown", userEmail: "alice@example.com", userName: "alicebrown" }
+            { name: "Alice Brown", userEmail: "alice@example.com", userName: "alicebrown" },
+            { name: "Toan", userEmail: "toan_98146@yahoo.com", userName: "toan_98146" }
         ]);
 
         console.log("Users inserted:", users.length);
