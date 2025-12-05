@@ -18,19 +18,26 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: Install dependencies
+      - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
 
-      - name: Run tests
+      - name: Build backend (TypeScript → JavaScript)
         working-directory: ./backend
-        run: npm test --if-present
+        run: npm run build
 
-      - name: Upload backend for deployment
+      - name: Package backend for Azure
+        run: |
+          mkdir backend-output
+          cp backend/package.json backend-output/
+          cp backend/package-lock.json backend-output/
+          cp -r backend/dist backend-output/dist
+
+      - name: Upload backend artifact
         uses: actions/upload-artifact@v4
         with:
-          name: backend-app
-          path: backend/
+          name: backend-package
+          path: backend-output/
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,18 +47,18 @@ jobs:
       contents: read
 
     steps:
-      - name: Download artifact
+      - name: Download backend artifact
         uses: actions/download-artifact@v4
         with:
-          name: backend-app
+          name: backend-package
           path: ./app
 
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8B267B67FF8E446EBE3032BCE2452E27 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E1E1451E6F7D45F8890E324CF30E9966 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_93F5E74FF8B94EE6B48C093D8D703686 }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
