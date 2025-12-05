@@ -25,7 +25,9 @@ app.use(session({
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // Move maxAge inside cookie
-    sameSite: 'lax' // Add this to prevent CSRF
+    sameSite: 'strict' // Strong CSRF protection; consider CSRF tokens for state-changing operations
+    // Note: sameSite: 'strict' provides strong CSRF mitigation, but may affect user experience with external links.
+    // For full protection, also implement CSRF tokens for state-changing operations.
   }
 }));
 
