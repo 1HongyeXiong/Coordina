@@ -20,11 +20,27 @@ jobs:
         with:
           node-version: "20.x"
 
-      - name: Install backend dependencies + build
+      - name: Configure npm registry (fallback mirror)
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm config set fetch-retries 5
+          npm config set fetch-retry-factor 2
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
+
+      - name: Install backend dependencies with retry
         working-directory: ./backend
         run: |
-          npm install
-          npm run build
+          echo "Installing dependencies..."
+          for i in 1 2 3; do
+            npm install && break
+            echo "npm install failed — retrying ($i/3)..."
+            sleep 5
+          done
+
+      - name: Build backend
+        working-directory: ./backend
+        run: npm run build
 
       - name: Prepare deployment package (include node_modules)
         run: |
