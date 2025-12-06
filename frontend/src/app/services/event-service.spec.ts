@@ -2,6 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { EventService } from './event-service';
 import { Event } from '../models/event';
+import { environment } from '../../environments/environment';
+
+const EVENTS_URL = `${environment.apiConfig.baseUrl}/events`;
 
 describe('EventService', () => {
   let service: EventService;
@@ -70,7 +73,7 @@ describe('EventService', () => {
         expect(events).toEqual(mockEvents);
       });
 
-      const req = httpMock.expectOne('http://localhost:5001/api/events');
+      const req = httpMock.expectOne(EVENTS_URL);
       expect(req.request.method).toBe('GET');
       req.flush(mockEvents);
     });
@@ -85,7 +88,7 @@ describe('EventService', () => {
         }
       });
 
-      const req = httpMock.expectOne('http://localhost:5001/api/events');
+      const req = httpMock.expectOne(EVENTS_URL);
       req.flush(errorMessage, { status: 500, statusText: 'Server Error' });
     });
 
@@ -94,7 +97,7 @@ describe('EventService', () => {
         expect(events).toEqual([]);
       });
 
-      const req = httpMock.expectOne('http://localhost:5001/api/events');
+      const req = httpMock.expectOne(EVENTS_URL);
       req.flush([]);
     });
   });
@@ -125,7 +128,7 @@ describe('EventService', () => {
         expect(event._id).toBe('1');
       });
 
-      const req = httpMock.expectOne('http://localhost:5001/api/events/1');
+      const req = httpMock.expectOne(`${EVENTS_URL}/1`);
       expect(req.request.method).toBe('GET');
       req.flush(mockEvent);
     });
@@ -138,7 +141,7 @@ describe('EventService', () => {
         }
       });
 
-      const req = httpMock.expectOne('http://localhost:5001/api/events/999');
+      const req = httpMock.expectOne(`${EVENTS_URL}/999`);
       req.flush('Event not found', { status: 404, statusText: 'Not Found' });
     });
 
@@ -150,7 +153,7 @@ describe('EventService', () => {
         }
       });
 
-      const req = httpMock.expectOne('http://localhost:5001/api/events/1');
+      const req = httpMock.expectOne(`${EVENTS_URL}/1`);
       req.error(new ErrorEvent('Network error'));
     });
   });

@@ -8,8 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class EventService {
-
-  private apiUrl = `${environment.apiConfig.baseUrl}/events`;
+  private apiUrl = `${environment.apiConfig.baseUrl}/events`; // backend base URL
 
   constructor(private http: HttpClient) {}
 
