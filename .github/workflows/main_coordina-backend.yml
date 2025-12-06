@@ -82,7 +82,8 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: "coordina-backend"
+          app-name: "coordina-backend-dkfzh7g8a4c7fbec"
           slot-name: "Production"
           package: "./app"
+
 
