@@ -3,21 +3,17 @@
   "version": "1.0.0",
   "description": "Smart group scheduling app that helps teams and friends find the best time to meet.",
   "main": "dist/server.js",
-
   "scripts": {
     "dev": "ts-node server.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build": "tsc",
-    "start": "npx ts-node server.ts",
+    "start": "node dist/server.js",
     "seed": "ts-node scripts/populate.ts"
   },
-
   "type": "commonjs",
-
   "dependencies": {
-    "@angular/router": "^21.0.1",
     "@azure/msal-angular": "^4.0.22",
     "@azure/msal-browser": "^4.26.2",
     "@azure/msal-node": "^3.8.3",
@@ -29,20 +25,17 @@
     "mongoose": "^8.19.2",
     "morgan": "^1.10.1"
   },
-
   "devDependencies": {
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
-    "@types/jest": "^30.0.0",
     "@types/express-session": "^1.18.2",
+    "@types/jest": "^30.0.0",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.9.2",
     "@types/supertest": "^6.0.3",
     "jest": "^30.2.0",
     "supertest": "^7.1.4",
-    "ts-jest": "^29.4.5",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

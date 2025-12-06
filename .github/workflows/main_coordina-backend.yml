@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -16,21 +18,45 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: "20.x"
 
-      - name: Install backend dependencies
+      - name: Configure npm registry (fallback mirror)
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm config set fetch-retries 5
+          npm config set fetch-retry-factor 2
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
+
+      - name: Install backend dependencies with retry
         working-directory: ./backend
-        run: npm install
+        run: |
+          echo "Installing dependencies..."
+          for i in 1 2 3; do
+            npm install && break
+            echo "npm install failed — retrying ($i/3)..."
+            sleep 5
+          done
 
-      - name: Build backend (TypeScript → JavaScript)
+      - name: Build backend
         working-directory: ./backend
         run: npm run build
 
-      - name: Upload backend dist folder
+      - name: Prepare deployment package (include node_modules)
+        run: |
+          mkdir backend-package
+          cp -r backend/dist backend-package/dist
+          cp -r backend/auth backend-package/auth
+          cp backend/package.json backend/package-lock.json backend-package/
+          cp -r backend/node_modules backend-package/node_modules
+
+          
+
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: backend-dist
-          path: backend/dist/
+          name: backend-app
+          path: backend-package
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,18 +69,20 @@ jobs:
       - name: Download backend artifact
         uses: actions/download-artifact@v4
         with:
-          name: backend-dist
+          name: backend-app
+          path: ./app
 
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8C23322913F04826A0702D9DE971572B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_885EE270E1FF4FB799DEA764650F1049 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2E187219C5F847CBBC25D690B976424C }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8B267B67FF8E446EBE3032BCE2452E27 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E1E1451E6F7D45F8890E324CF30E9966 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_93F5E74FF8B94EE6B48C093D8D703686 }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'coordina-backend'
-          slot-name: 'Production'
-          package: .
+          app-name: "coordina-backend"
+          slot-name: "Production"
+          package: "./app"
+

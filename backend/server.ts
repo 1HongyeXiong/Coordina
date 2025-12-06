@@ -12,27 +12,32 @@ import authRoutes from "./routes/auth";
 
 dotenv.config();
 const app = express();
-const authProvider = require('./auth/AuthProvider');
-const authController = require('./controllers/authController');
 
+// ★ Allow front-end hosted on Azure Static Web App
+const FRONTEND_URL = "https://lemon-smoke-0c9095b1e.3.azurestaticapps.net";
 
+app.use(cors({
+  origin: FRONTEND_URL,
+  credentials: true
+}));
+
+// ★ Session (must come AFTER CORS)
 app.use(session({
   secret: process.env.SESSION_SECRET || 'defaultsecret',
   resave: false,
-  saveUninitialized: false, // Changed from true
+  saveUninitialized: false,
   cookie: { 
-    secure: process.env.NODE_ENV === 'production',
+    secure: process.env.NODE_ENV === 'production', // Required on Azure
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000 // Move maxAge inside cookie
+    sameSite: "none",  // ★ Required for cross-site cookies
+    maxAge: 24 * 60 * 60 * 1000
   }
 }));
 
 // Middleware
-app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("frontend"));
-
 
 // Database connection
 connectDB();
@@ -43,20 +48,18 @@ app.use("/api/events", eventRoutes);
 app.use("/api/eventtimes", eventtimeRoute);
 app.use("/auth", authRoutes);
 
-
 app.get("/test", (req, res) => {
   res.status(200).send("It works!");
 });
 
-
 // Root route
 app.get("/", (req, res) => {
   res.send({
-    message: "Welcome to Coordina API ",
+    message: "Welcome to Coordina API",
     endpoints: {
       users: "/api/users",
       events: "/api/events",
-      eventtime: "/api/eventtimes"
+      eventtime: "/api/eventtimes",
     },
   });
 });

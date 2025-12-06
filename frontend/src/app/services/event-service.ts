@@ -12,15 +12,11 @@ export class EventService {
 
   constructor(private http: HttpClient) {}
 
-  // Get all events (optionally filtered by userId)
   getEvents(userId?: string): Observable<Event[]> {
-    console.log('Fetching events from', this.apiUrl);
-    
     let params = new HttpParams();
     if (userId) {
       params = params.set('userId', userId);
     }
-    
     return this.http.get<Event[]>(this.apiUrl, { params });
   }
 
